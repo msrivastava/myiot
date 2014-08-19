@@ -78,19 +78,19 @@
 		<script type="text/javascript">
 			
 			var w1 = function() {
-				$.get("http://mbs-ror-131336.usw1-2.nitrousbox.com:3001/measure/netatmo?device_id=70:ee:50:01:34:8c",function (data) {
-					$("#temp-indoor").html( data.v[0]);
-					$("#CO2-indoor").html( data.v[1]);
-					$("#hum-indoor").html( data.v[2]);
-					$("#pressure-indoor").html( data.v[3]);
-					$("#noise-indoor").html( data.v[4]);
+				$.getJSON("http://mbs-ror-131336.usw1-2.nitrousbox.com:3001/measure/netatmo?device_id=70:ee:50:01:34:8c",function (data) {
+					$("#temp-indoor").html(data.v[0]);
+					$("#CO2-indoor").html(data.v[1]);
+					$("#hum-indoor").html(data.v[2]);
+					$("#pressure-indoor").html(data.v[3]);
+					$("#noise-indoor").html(data.v[4]);
 				});
 			}
 			
 			var w2 = function() {
-				$.get("http://mbs-ror-131336.usw1-2.nitrousbox.com:3001/measure/netatmo?device_id=70:ee:50:01:34:8c&module_id=02:00:00:01:16:12", function (data) {
-					$("#temp-outdoor").html( data.v[0]);
-					$("#hum-outdoor").html( data.v[1]);
+				$.getJSON("http://mbs-ror-131336.usw1-2.nitrousbox.com:3001/measure/netatmo?device_id=70:ee:50:01:34:8c&module_id=02:00:00:01:16:12", function (data) {
+					$("#temp-outdoor").html(data.v[0]);
+					$("#hum-outdoor").html(data.v[1]);
 				});
 			}
 			
