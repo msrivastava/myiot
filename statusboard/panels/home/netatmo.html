@@ -7,7 +7,7 @@
 			#sensorstatContainer
 			{
 				width: 378px;
-				height: 378px;
+				height: 314px;
 				text-align: center;
 			}
 			
@@ -16,17 +16,13 @@
 				font-weight: normal;
 			}
 			
-			.sensor_header
+			.sensor_type_header, .sensor_value_header, .sensor_unit_header, .sensor_comment_header
 			{
 				text-transform: uppercase;
 				font-weight: lighter;
 				font-size: 16px;
-				color: #7b7b7b;
+				color: #7e7e7e;
 				line-height: 20px;
-			}
-			
-			.sensor_type_header, .sensor_value_header, .sensor_unit_header, .sensor_comment_header
-			{
 				padding-top: 20px;
 				padding-bottom: 14px;
 				padding-left: 8px;
@@ -39,20 +35,21 @@
 					
 			.sensor_type, .sensor_value, .sensor_unit, .sensor_comment
 			{
-				padding-top: 10px;
-				padding-bottom: 8px;
-				padding-left: 8px;
-				padding-right: 8px;
+				font-size: 20px;
+        			color: white;
+				padding-top: 7px;
+				padding-bottom: 7px;
+        			padding-left: 8px;
+				padding-right: 8px
 				border-top-style: ridge;
 				border-left-style: none;
 				border-right-style: none;
 				margin-left: 0px;
 				margin-right: 0px;
 				border-top-color: #454545;
-				border-top-width: thin;
 			}
 			
-			.sensor_type
+			.sensor_type, .sensor_type_header
 			{
 				text-align: left;
 			}
@@ -62,7 +59,12 @@
 				text-align: center;
 			}
 			
-			.sensor_unit
+			.sensor_value_header
+			{
+				text-align: center;
+			}
+			
+			.sensor_unit, .sensor_unit_header
 			{
 				text-align: left;
 			}
