@@ -1,2 +1,2 @@
-sensortestbed-home
+Sensor Testbed @ Home
 ==================
