@@ -1,0 +1,170 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+		<meta http-equiv="Cache-control" content="no-cache" />
+		<link href="../stylesheets/statusboard.css" rel="stylesheet" type="text/css"/>
+		<style type="text/css">			
+			#sensorstatContainer
+			{
+				width: 378px;
+				height: 378px;
+				text-align: center;
+			}
+			
+			#sensorstatContainer *
+			{
+				font-weight: normal;
+			}
+			
+			.sensor_header
+			{
+				text-transform: uppercase;
+				font-weight: lighter;
+				font-size: 16px;
+				color: #7b7b7b;
+				line-height: 20px;
+			}
+			
+			.sensor_type_header, .sensor_value_header, .sensor_unit_header, .sensor_comment_header
+			{
+				padding-top: 20px;
+				padding-bottom: 14px;
+				padding-left: 8px;
+				padding-right: 8px;
+				border-left-style: none;
+				border-right-style: none;
+				margin-left: 0px;
+				margin-right: 0px;
+			}
+					
+			.sensor_type, .sensor_value, .sensor_unit, .sensor_comment
+			{
+				padding-top: 10px;
+				padding-bottom: 8px;
+				padding-left: 8px;
+				padding-right: 8px;
+				border-top-style: ridge;
+				border-left-style: none;
+				border-right-style: none;
+				margin-left: 0px;
+				margin-right: 0px;
+				border-top-color: #454545;
+				border-top-width: thin;
+			}
+			
+			.sensor_type
+			{
+				text-align: left;
+			}
+			
+			.sensor_value
+			{
+				text-align: center;
+			}
+			
+			.sensor_unit
+			{
+				text-align: left;
+			}
+			
+			.sensor_comment, .sensor_comment_header
+			{
+				text-align: left;
+			}		
+		</style>
+	
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script type="text/javascript">
+			
+			var w1 = function() {
+				$.get("http://mbs-ror-131336.usw1-2.nitrousbox.com:3001/measure/netatmo?device_id=70:ee:50:01:34:8c",function (data) {
+					$("#temp-indoor").html( data.v[0]);
+					$("#CO2-indoor").html( data.v[1]);
+					$("#hum-indoor").html( data.v[2]);
+					$("#pressure-indoor").html( data.v[3]);
+					$("#noise-indoor").html( data.v[4]);
+				});
+			}
+			
+			var w2 = function() {
+				$.get("http://mbs-ror-131336.usw1-2.nitrousbox.com:3001/measure/netatmo?device_id=70:ee:50:01:34:8c&module_id=02:00:00:01:16:12", function (data) {
+					$("#temp-outdoor").html( data.v[0]);
+					$("#hum-outdoor").html( data.v[1]);
+				});
+			}
+			
+			function run_and_repeat(work,interval) {
+				work();
+				self.setInterval(function(){work()},interval);
+			}
+	
+			function init()
+			{
+				// Change page background to black if the URL contains "?desktop", 
+				// for debugging while developing on your computer
+				if (document.location.href.indexOf('desktop') == -1) {
+					document.getElementById('sensorstatContainer').style.backgroundColor = 'black';
+				}	
+				run_and_repeat(w1,300000);
+				run_and_repeat(w2,300000);
+			}
+		</script>
+	</head>
+	
+	<body onload="init()">
+		<div id="main">
+		    <div id="sensorstatContainer">
+		      <table id="stats" width=100%>
+		        <tr class="sensor_header">
+		          <th class="sensor_type_header">Sensor</th>
+		          <th class="sensor_value_header">Value</th>
+		          <th class="sensor_unit_header">Unit</th>
+		          <th class="sensor_comment_header">Comment</th>
+		        </tr>
+		        <tr>
+		          <td class="sensor_type">Temp</td>
+		          <td class="sensor_value" id="temp-indoor"></td>
+		          <td class="sensor_unit">°C</td>
+		          <td class="sensor_comment">indoor</td>
+		        </tr>
+		        <tr>
+		          <td class="sensor_type"></td>
+		          <td class="sensor_value" id="temp-outdoor"></td>
+		          <td class="sensor_unit">°C</td>
+		          <td class="sensor_comment">outdoor</td>
+		        </tr>
+		        <tr>
+		          <td class="sensor_type">Humidity</td>
+		          <td class="sensor_value" id="hum-indoor"></td>
+		          <td class="sensor_unit">%</td>
+		          <td class="sensor_comment">indoor</td>
+		        </tr>
+		        <tr>
+		          <td class="sensor_type"></td>
+		          <td class="sensor_value" id="hum-outdoor"></td>
+		          <td class="sensor_unit">%</td>
+		          <td class="sensor_comment">outdoor</td>
+		        </tr>
+		        <tr>
+		          <td class="sensor_type">CO2</td>
+		          <td class="sensor_value" id="CO2-indoor"></td>
+		          <td class="sensor_unit">ppm</td>
+		          <td class="sensor_comment">indoor</td>
+		        </tr>
+		        <tr>
+		          <td class="sensor_type">Noise</td>
+		          <td class="sensor_value" id="noise-indoor"></td>
+		          <td class="sensor_unit">db</td>
+		          <td class="sensor_comment">indoor</td>
+		        </tr>
+		        <tr>
+		          <td class="sensor_type">Pressure</td>
+		          <td class="sensor_value" id="pressure-indoor"></td>
+		          <td class="sensor_unit">mbar</td>
+		          <td class="sensor_comment">indoor</td>
+		        </tr>
+		      </table>
+		    </div>	
+		</div><!-- main -->
+	</body>
+</html>
