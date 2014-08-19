@@ -2,6 +2,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
 		<meta http-equiv="Cache-control" content="no-cache" />
+    		<meta application-name="Sensor Value Table" data-allows-resizing="YES" data-default-size="6,5" data-min-size="6,5" data-max-size="6,6" data-allows-scrolling="NO" />
 		<link href="../stylesheets/statusboard.css" rel="stylesheet" type="text/css"/>
 		<style type="text/css">			
 			#sensorstatContainer
@@ -15,38 +16,41 @@
 			{
 				font-weight: normal;
 			}
+      
+      			#statstable
+      			{
+        			width: 100%;
+        			border-collapse: collapse;
+      			}
 			
 			.sensor_type_header, .sensor_value_header, .sensor_unit_header, .sensor_comment_header
 			{
-				text-transform: uppercase;
+        			text-transform: uppercase;
 				font-weight: lighter;
 				font-size: 16px;
 				color: #7e7e7e;
 				line-height: 20px;
 				padding-top: 20px;
-				padding-bottom: 14px;
+				padding-bottom: 20px;
 				padding-left: 8px;
 				padding-right: 8px;
-				border-left-style: none;
-				border-right-style: none;
-				margin-left: 0px;
-				margin-right: 0px;
 			}
 					
 			.sensor_type, .sensor_value, .sensor_unit, .sensor_comment
 			{
 				font-size: 20px;
         			color: white;
-				padding-top: 7px;
+				padding-top: 8px;
 				padding-bottom: 7px;
         			padding-left: 8px;
-				padding-right: 8px
+				padding-right: 8px;
+      			}
+      
+      			.sensor_type, .sensor_value, .sensor_unit, .sensor_comment
+      			{
 				border-top-style: ridge;
-				border-left-style: none;
-				border-right-style: none;
-				margin-left: 0px;
-				margin-right: 0px;
 				border-top-color: #454545;
+				border-top-width: thin;
 			}
 			
 			.sensor_type, .sensor_type_header
@@ -55,11 +59,11 @@
 			}
 			
 			.sensor_value
-			{
-				text-align: center;
-			}
-			
-			.sensor_value_header
+		      	{
+		        	text-align: center;
+		      	}
+      
+      			.sensor_value_header
 			{
 				text-align: center;
 			}
@@ -81,7 +85,7 @@
 			
 			var w1 = function() {
 				$.getJSON("http://mbs-ror-131336.usw1-2.nitrousbox.com:3001/measure/netatmo?device_id=70:ee:50:01:34:8c",function (data) {
-					$("#temp-indoor").html(data.v[0]);
+					$("#temp-indoor").html(Math.round(data.v[0]*18+320)/10);
 					$("#CO2-indoor").html(data.v[1]);
 					$("#hum-indoor").html(data.v[2]);
 					$("#pressure-indoor").html(data.v[3]);
@@ -91,7 +95,7 @@
 			
 			var w2 = function() {
 				$.getJSON("http://mbs-ror-131336.usw1-2.nitrousbox.com:3001/measure/netatmo?device_id=70:ee:50:01:34:8c&module_id=02:00:00:01:16:12", function (data) {
-					$("#temp-outdoor").html(data.v[0]);
+					$("#temp-outdoor").html(Math.round(data.v[0]*18+320)/10);
 					$("#hum-outdoor").html(data.v[1]);
 				});
 			}
@@ -117,9 +121,9 @@
 	<body onload="init()">
 		<div id="main">
 		    <div id="sensorstatContainer">
-		      <table id="stats" width=100%>
-		        <tr class="sensor_header">
-		          <th class="sensor_type_header">Sensor</th>
+		      <table id="statstable"%>
+		        <tr>
+        	 	  <th class="sensor_type_header">Sensor</th>
 		          <th class="sensor_value_header">Value</th>
 		          <th class="sensor_unit_header">Unit</th>
 		          <th class="sensor_comment_header">Comment</th>
@@ -127,13 +131,13 @@
 		        <tr>
 		          <td class="sensor_type">Temp</td>
 		          <td class="sensor_value" id="temp-indoor"></td>
-		          <td class="sensor_unit">°C</td>
+		          <td class="sensor_unit">°F</td>
 		          <td class="sensor_comment">indoor</td>
 		        </tr>
 		        <tr>
 		          <td class="sensor_type"></td>
 		          <td class="sensor_value" id="temp-outdoor"></td>
-		          <td class="sensor_unit">°C</td>
+		          <td class="sensor_unit">°F</td>
 		          <td class="sensor_comment">outdoor</td>
 		        </tr>
 		        <tr>
